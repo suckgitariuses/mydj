@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         ),
-        home: LoginPage() // <-- Kita ganti dengan halaman login yang kitabuat
+        home: const LoginPage() // <-- Kita ganti dengan halaman login yang kitabuat
     );
   }
 }

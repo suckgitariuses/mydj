@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:mydj/components/password_field.dart'; // ✅ pastikan path sesuai
-import 'package:mydj/pages/simple_home_page.dart';   // ✅ halaman tujuan setelah login
+import 'package:mydj/components/password_field.dart';
+import 'package:mydj/pages/simple_home_page.dart';
 
 class LoginPage extends StatefulWidget {
-  final String title = 'MyDJ - Welcome';
   const LoginPage({super.key});
+  final String title = 'MyDJ - Welcome';
 
   @override
   State<StatefulWidget> createState() {
@@ -13,32 +13,18 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String namaPengguna = ''; // Menyimpan username
-  String sandi = '';        // Menyimpan password
+  String namaPengguna = '';
+  String sandi = '';
 
-  // Fungsi sederhana untuk proses login
-  void _login() {
-    if (namaPengguna.isEmpty || sandi.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Username dan password tidak boleh kosong")),
-      );
-      return;
-    }
-
-    // Contoh validasi sederhana
-    if (namaPengguna == "admin" && sandi == "12345") {
+  void login(BuildContext context) {
+    if (namaPengguna == 'guru' && sandi == 'guru') {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-          builder: (context) => const SimpleHomePage(title: 'MyDJ Home'),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Login berhasil!")),
+        MaterialPageRoute(builder: (context) => const SimpleHomePage(title: 'Beranda')),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Username atau password salah")),
+        const SnackBar(content: Text('Username atau password salah'), backgroundColor: Colors.redAccent),
       );
     }
   }
@@ -55,54 +41,21 @@ class _LoginPageState extends State<LoginPage> {
         child: SingleChildScrollView(
           child: Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/images/login_icon.jpg',
-                  width: 250,
-                ),
-                const SizedBox(height: 30),
-                const Text(
-                  "Selamat Datang di MyDJ",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                Image.asset('assets/images/login_icon.jpg', width: 200),
                 const SizedBox(height: 20),
-
-                // Field Username
                 TextField(
-                  decoration: const InputDecoration(
-                    labelText: "Nama Pengguna",
-                    border: OutlineInputBorder(),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      namaPengguna = value;
-                    });
-                  },
+                  decoration: const InputDecoration(border: OutlineInputBorder(), labelText: 'Nama Pengguna'),
+                  onChanged: (v) => namaPengguna = v,
                 ),
+                const SizedBox(height: 12),
+                PasswordField(onChanged: (v) => sandi = v),
                 const SizedBox(height: 20),
-
-                // 🔹 Field Password (gunakan widget buatanmu)
-                PasswordField(
-                  onChanged: (value) {
-                    setState(() {
-                      sandi = value;
-                    });
-                  },
-                ),
-                const SizedBox(height: 30),
-
-                // 🔹 Tombol Login
-                ElevatedButton.icon(
-                  onPressed: _login,
-                  icon: const Icon(Icons.login),
-                  label: const Text("Login"),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () => login(context),
+                    child: const Text('Login'),
                   ),
                 ),
               ],

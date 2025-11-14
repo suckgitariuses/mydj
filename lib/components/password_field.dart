@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class PasswordField extends StatefulWidget
-{
+class PasswordField extends StatefulWidget {
   final void Function(String value) onChanged;
   const PasswordField({super.key, this.onChanged = _emptyFunction});
+
   static void _emptyFunction(String value) {}
 
   @override
@@ -12,31 +12,26 @@ class PasswordField extends StatefulWidget
   }
 }
 
-class _PasswordFieldState extends State<PasswordField>
-{
-  bool _obscure = true; // <-- Teksnya ditutup atau diperlihatkan
+class _PasswordFieldState extends State<PasswordField> {
+  bool _obscure = true;
 
-  void _toggleVisibilityIconButton()
-  {
+  void _toggleVisibilityIconButton() {
     setState(() {
       _obscure = !_obscure;
     });
   }
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return TextFormField(
       obscureText: _obscure,
       decoration: InputDecoration(
-          labelText: 'Password',
-          border: OutlineInputBorder(),
-          suffixIcon: IconButton(
-              icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
-              onPressed: () => {
-                _toggleVisibilityIconButton()
-              }
-          )
+        labelText: 'Password',
+        border: const OutlineInputBorder(),
+        suffixIcon: IconButton(
+          icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
+          onPressed: _toggleVisibilityIconButton,
+        ),
       ),
       onChanged: widget.onChanged,
     );

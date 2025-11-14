@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/data_provider.dart';
 import '../data/jurnal.dart';
+import 'package:mydj/components/media_selector.dart';
 
 class BuatJurnalPage extends StatefulWidget {
   final String title;
@@ -21,7 +22,7 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
   String kegiatanPembelajaran = '';
   String dimensiProfilPelajarPancasila = '';
 
-  // Fungsi simpan jurnal ke Provider
+  // Fungsi simpan jurnal
   void _saveJurnal(BuildContext context) {
     if (kelas.isEmpty || mapel.isEmpty || jamKe == 0) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -43,27 +44,14 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
       dimensiProfilPelajarPancasila: dimensiProfilPelajarPancasila,
     );
 
-    // Simpan data ke provider
-    DataProvider provider = context.read<DataProvider>();
-    provider.addNew(jurnal);
+    context.read<DataProvider>().addNew(jurnal);
 
-    // Feedback sukses + reset form
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Jurnal berhasil disimpan!')),
     );
-
-    setState(() {
-      kelas = '';
-      mapel = '';
-      jamKe = 0;
-      tujuanPembelajaran = '';
-      materiTopikPembelajaran = '';
-      kegiatanPembelajaran = '';
-      dimensiProfilPelajarPancasila = '';
-    });
   }
 
-  // Fungsi helper untuk text area
+  // Helper textarea
   Widget _textArea(String label, String hint, void Function(String text) onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -140,24 +128,43 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
               'Masukkan Tujuan Pembelajaran',
                   (text) => tujuanPembelajaran = text,
             ),
+
             const SizedBox(height: 10),
             _textArea(
               'Materi/Topik Pembelajaran',
               'Masukkan Materi/Topik Pembelajaran',
                   (text) => materiTopikPembelajaran = text,
             ),
+
             const SizedBox(height: 10),
             _textArea(
               'Kegiatan Pembelajaran',
               'Masukkan Kegiatan Pembelajaran',
                   (text) => kegiatanPembelajaran = text,
             ),
+
             const SizedBox(height: 10),
             _textArea(
               'Dimensi Profil Pelajar Pancasila',
               'Tuliskan Dimensi Profil Pelajar Pancasila',
                   (text) => dimensiProfilPelajarPancasila = text,
             ),
+
+            const SizedBox(height: 20),
+            const Text(
+              'Foto Kegiatan',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const MediaSelector(mediaType: MediaType.photo),
+
+            const SizedBox(height: 20),
+            const Text(
+              'Video Kegiatan',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const MediaSelector(mediaType: MediaType.video),
 
             const SizedBox(height: 20),
             SizedBox(
