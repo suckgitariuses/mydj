@@ -20,7 +20,7 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const LihatJurnalPage(title: 'Lihat Jurnal'),
+        builder: (context) => const LihatJurnalPage(),
       ),
     );
   }
@@ -30,7 +30,7 @@ class _SimpleHomePageState extends State<SimpleHomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const BuatJurnalPage(title: 'Buat Jurnal'),
+        builder: (context) => const BuatJurnalPage(),
       ),
     );
   }
