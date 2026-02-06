@@ -37,22 +37,25 @@ class _MediaSelectorState extends State<MediaSelector> {
   void _selectFromCamera() async {
     XFile? media = await _retrieveMedia(ImageSource.camera);
     if (media != null) {
-      setState(() => _mediaPath = media.path);
-      widget.onMediaSelected?.call(_mediaPath);
+      setState(() {
+        _mediaPath = media.path;
+      });
     }
   }
 
   void _selectFromGallery() async {
     XFile? media = await _retrieveMedia(ImageSource.gallery);
     if (media != null) {
-      setState(() => _mediaPath = media.path);
-      widget.onMediaSelected?.call(_mediaPath);
+      setState(() {
+        _mediaPath = media.path;
+      });
     }
   }
 
   void _deleteSelected() {
-    setState(() => _mediaPath = '');
-    widget.onMediaSelected?.call('');
+    setState(() {
+      _mediaPath = '';
+    });
   }
 
   @override
@@ -107,43 +110,34 @@ class _MediaSelectorState extends State<MediaSelector> {
 
   Widget _mediaPlaceholder() {
     Icon icon;
-    String caption;
-    Widget previewWidget;
-
-    if (_mediaPath.isEmpty) {
-      icon = widget.mediaType == MediaType.photo
-          ? const Icon(Icons.image_not_supported, color: Colors.grey)
-          : const Icon(Icons.videocam_off, color: Colors.grey);
-
-      caption =
-          widget.mediaType == MediaType.photo ? 'No photo' : 'No video';
-
-      return SizedBox(
-        height: 150,
-        child: Row(
-          children: [
-            icon,
-            const SizedBox(width: 8),
-            Text(caption),
-          ],
-        ),
-      );
-    }
-
-    // Jika media tersedia
+    String caption = '';
+    Widget placeholderWidget;
+    // Cek jenis medianya apakah foto atau video
     if (widget.mediaType == MediaType.photo) {
-      previewWidget = Image.file(
+      icon = Icon(Icons.image_not_supported, color: Colors.grey);
+      caption = 'No photo';
+      placeholderWidget = Image.file(
         File(_mediaPath),
-        width: double.infinity,
-        fit: BoxFit.fitWidth,
+        width: double.infinity, // <-- Isi penuh parent
+        fit: BoxFit.fitWidth, // <-- Tinggi otomatis sesuai rasio
       );
     } else {
-      previewWidget = VideoPreview(path: _mediaPath);
+      icon = Icon(Icons.videocam_off, color: Colors.grey);
+      caption = 'No video';
+      placeholderWidget =
+          Column(); // <-- Nanti kita ganti dengan komponen yang kita buat
     }
 
-    return SizedBox(
-      width: double.infinity,
-      child: previewWidget,
-    );
+    // Jika path kosong, tampilkan "No Photo/Video".
+    if (_mediaPath.isEmpty) {
+      return SizedBox(
+        height: 56, // <-- Tinggi default TextField
+        child: Row(children: [icon, SizedBox(width: 8), Text(caption)]),
+      );
+    }
+    // Jika path ada isinya, tampilkan medianya.
+    else {
+      return SizedBox(width: double.infinity, child: placeholderWidget);
+    }
   }
 }
