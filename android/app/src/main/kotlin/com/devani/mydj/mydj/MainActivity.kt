@@ -1,4 +1,4 @@
-package com.devani.mydj.mydj
+package com.devani.mydj
 
 import io.flutter.embedding.android.FlutterActivity
 

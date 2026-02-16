@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../data/data_provider.dart';
 import '../data/jurnal.dart';
-// import 'package:mydj/components/media_selector.dart';
+import 'package:mydj/components/media_selector.dart';
 
 class BuatJurnalPage extends StatefulWidget {
   final String title = 'Buat Jurnal';
@@ -188,6 +188,15 @@ class _BuatJurnalPageState extends State<BuatJurnalPage> {
                   dimensiProfilPelajarPancasila = value;
                 }),
               ),
+              const SizedBox(height: 10),
+              const SizedBox(height: 10),
+              Text('Foto Kegiatan'),
+              const SizedBox(height: 10),
+              MediaSelector(), // <-- MediaSelector untuk foto.
+              const SizedBox(height: 10),
+              Text('Video Kegiatan'),
+              const SizedBox(height: 10),
+              MediaSelector(mediaType: MediaType.video), // <-- MediaSelector untuk video.
               const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,

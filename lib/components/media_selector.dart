@@ -31,6 +31,7 @@ class _MediaSelectorState extends State<MediaSelector> {
     } else {
       media = await picker.pickVideo(source: source);
     }
+
     return media;
   }
 
@@ -40,6 +41,7 @@ class _MediaSelectorState extends State<MediaSelector> {
       setState(() {
         _mediaPath = media.path;
       });
+      widget.onMediaSelected?.call(_mediaPath);
     }
   }
 
@@ -49,6 +51,7 @@ class _MediaSelectorState extends State<MediaSelector> {
       setState(() {
         _mediaPath = media.path;
       });
+      widget.onMediaSelected?.call(_mediaPath);
     }
   }
 
@@ -56,6 +59,7 @@ class _MediaSelectorState extends State<MediaSelector> {
     setState(() {
       _mediaPath = '';
     });
+    widget.onMediaSelected?.call('');
   }
 
   @override
@@ -124,8 +128,7 @@ class _MediaSelectorState extends State<MediaSelector> {
     } else {
       icon = Icon(Icons.videocam_off, color: Colors.grey);
       caption = 'No video';
-      placeholderWidget =
-          Column(); // <-- Nanti kita ganti dengan komponen yang kita buat
+      placeholderWidget = VideoPreview(path: _mediaPath);
     }
 
     // Jika path kosong, tampilkan "No Photo/Video".
@@ -135,9 +138,19 @@ class _MediaSelectorState extends State<MediaSelector> {
         child: Row(children: [icon, SizedBox(width: 8), Text(caption)]),
       );
     }
+
     // Jika path ada isinya, tampilkan medianya.
-    else {
-      return SizedBox(width: double.infinity, child: placeholderWidget);
+    // Bangun widget yang sesuai hanya setelah memastikan path tidak kosong
+    if (widget.mediaType == MediaType.photo) {
+      placeholderWidget = Image.file(
+        File(_mediaPath),
+        width: double.infinity,
+        fit: BoxFit.fitWidth,
+      );
+    } else {
+      placeholderWidget = VideoPreview(path: _mediaPath);
     }
+
+    return SizedBox(width: double.infinity, child: placeholderWidget);
   }
 }

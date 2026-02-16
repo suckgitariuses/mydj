@@ -13,34 +13,50 @@ class VideoPreview extends StatefulWidget {
 }
 
 class _VideoPreviewState extends State<VideoPreview> {
-  late VideoPlayerController _controller;
+  VideoPlayerController? _controller;
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.file(File(widget.path));
-    _controller.initialize().then((_) {
-      setState(() {
-        _controller.play();
-        _controller.setLooping(true);
+    // Safety: if path is empty, don't initialize controller.
+    if (widget.path.isEmpty) return;
+
+    try {
+      _controller = VideoPlayerController.file(File(widget.path));
+      _controller!.initialize().then((_) {
+        if (!mounted) return;
+        setState(() {
+          _controller!..play();
+          _controller!..setLooping(true);
+        });
+      }).catchError((e) {
+        // ignore initialization errors, show fallback UI
+        if (mounted) setState(() {});
       });
-    });
+    } catch (e) {
+      // Swallow any synchronous errors to avoid crashing the app
+      _controller = null;
+    }
   }
 
   @override
   void dispose() {
-    _controller.pause();
-    _controller.dispose();
+    _controller?.pause();
+    _controller?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return _controller.value.isInitialized
+    if (_controller == null) {
+      return const Center(child: Text('Tidak dapat memutar video'));
+    }
+
+    return _controller!.value.isInitialized
         ? AspectRatio(
-      aspectRatio: _controller.value.aspectRatio,
-      child: VideoPlayer(_controller),
-    )
+            aspectRatio: _controller!.value.aspectRatio,
+            child: VideoPlayer(_controller!),
+          )
         : const Center(child: CircularProgressIndicator());
   }
 }

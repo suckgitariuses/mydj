@@ -22,7 +22,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.teal,
         title: Text(
           widget.title,
           style: const TextStyle(fontWeight: FontWeight.bold),
@@ -35,7 +35,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Colors.deepPurple[100]!, Colors.purple[100]!],
+              colors: [Colors.teal[100]!, Colors.teal[100]!],
             ),
           ),
           width: double.infinity,
@@ -49,7 +49,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
               Container(
                 padding: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple,
+                  color: Colors.teal,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: const Icon(
@@ -65,7 +65,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                 style: TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
-                  color: Colors.deepPurple,
+                  color: Colors.teal,
                   letterSpacing: 2,
                 ),
               ),
@@ -85,7 +85,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                   style: TextStyle(
                     fontSize: 16,
                     fontStyle: FontStyle.italic,
-                    color: Colors.deepPurple,
+                    color: Colors.teal,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -118,14 +118,14 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.info_outline, color: Colors.deepPurple),
+                          Icon(Icons.info_outline, color: Colors.teal),
                           SizedBox(width: 8),
                           Text(
                             "Tentang Aplikasi",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
+                              color: Colors.teal,
                             ),
                           ),
                         ],
@@ -147,14 +147,14 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                           horizontal: 12,
                         ),
                         decoration: BoxDecoration(
-                          color: Colors.deepPurple[50],
+                          color: Colors.teal[50],
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Text(
                           "Version: 1.0.0",
                           style: TextStyle(
                             fontSize: 13,
-                            color: Colors.deepPurple,
+                            color: Colors.teal,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -181,14 +181,14 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.person_outline, color: Colors.deepPurple),
+                          Icon(Icons.person_outline, color: Colors.teal),
                           SizedBox(width: 8),
                           Text(
                             "Developer",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
+                              color: Colors.teal,
                             ),
                           ),
                         ],
@@ -213,8 +213,8 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                           decoration: BoxDecoration(
                             gradient: LinearGradient(
                               colors: [
-                                Colors.deepPurple[300]!,
-                                Colors.deepPurple[600]!,
+                                Colors.teal[300]!,
+                                Colors.teal[600]!,
                               ],
                             ),
                             borderRadius: BorderRadius.circular(20),
@@ -261,14 +261,14 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                       const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.stars, color: Colors.deepPurple),
+                          Icon(Icons.stars, color: Colors.teal),
                           SizedBox(width: 8),
                           Text(
                             "Fitur Utama",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepPurple,
+                              color: Colors.teal,
                             ),
                           ),
                         ],
@@ -304,7 +304,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: Colors.deepPurple.withOpacity(0.3),
+                      color: Colors.teal.withOpacity(0.3),
                       width: 1,
                     ),
                   ),
@@ -321,7 +321,7 @@ class _TentangAplikasiPageState extends State<TentangAplikasiPage> {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "© 2024 MyDJ. All rights reserved.",
+                      "© 2025 MyDJ. All rights reserved.",
                       style: TextStyle(fontSize: 12, color: Colors.black45),
                     ),
                   ],
@@ -355,10 +355,10 @@ class FeatureItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.deepPurple[50],
+            color: Colors.teal[50],
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: Colors.deepPurple, size: 24),
+          child: Icon(icon, color: Colors.teal, size: 24),
         ),
         const SizedBox(width: 12),
         Expanded(

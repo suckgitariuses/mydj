@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:mydj/components/password_field.dart';
 import 'package:mydj/pages/simple_home_page.dart';
+import 'package:mydj/data/data_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,16 +18,28 @@ class _LoginPageState extends State<LoginPage> {
   String namaPengguna = '';
   String sandi = '';
 
-  void login(BuildContext context) {
+  Future<void> _login(BuildContext context) async {
+    // Ambil instance Provider (state management) kita dari BuildContext
+    DataProvider provider = context.read<DataProvider>();
+
+    // Jika username dan password benar..
     if (namaPengguna == 'guru' && sandi == 'guru') {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const SimpleHomePage(title: 'Beranda')),
-      );
+      // Simpan info login lewat Provider (State Management)
+      await provider.saveLoginInfo(namaPengguna, sandi);
+
+      // Jika ingin menggunakan BuildContext dalam operasi async, harus dicek dulu
+      if (context.mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const SimpleHomePage(title: 'Beranda')),
+        );
+      }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Username atau password salah'), backgroundColor: Colors.redAccent),
-      );
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Username atau password salah'), backgroundColor: Colors.redAccent),
+        );
+      }
     }
   }
 
@@ -54,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () => login(context),
+                    onPressed: () => _login(context),
                     child: const Text('Login'),
                   ),
                 ),
